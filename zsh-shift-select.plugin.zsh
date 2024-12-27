@@ -69,8 +69,8 @@ function {
 
 	# Bind Shift keys in the emacs and shift-select keymaps.
 	for	kcap   seq          seq_mac    widget (             # key name
-		kLFT   '^[O5D'    x          backward-char        # Shift + LeftArrow
-		kRIT   '^[O5C'    x          forward-char         # Shift + RightArrow
+		kLFT   '^[O2D'    x          backward-char        # Shift + LeftArrow
+		kRIT   '^[O2C'    x          forward-char         # Shift + RightArrow
 		kri    '^[O2A'    x          up-line              # Shift + UpArrow
 		kind   '^[O2B'    x          down-line            # Shift + DownArrow
 		kHOM   '^[O2H'    x          beginning-of-line    # Shift + Home
