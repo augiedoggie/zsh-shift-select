@@ -48,6 +48,7 @@ zle -N shift-select::deselect-and-input
 # prefix. This function must be used only for shift-select::<widget> widgets.
 function shift-select::select-and-invoke() {
 	if (( !REGION_ACTIVE )); then
+		REGION_ACTIVE=1
 		zle set-mark-command -w
 		zle -K shift-select
 	fi
@@ -68,13 +69,13 @@ function {
 
 	# Bind Shift keys in the emacs and shift-select keymaps.
 	for	kcap   seq          seq_mac    widget (             # key name
-		kLFT   '^[[1;2D'    x          backward-char        # Shift + LeftArrow
-		kRIT   '^[[1;2C'    x          forward-char         # Shift + RightArrow
-		kri    '^[[1;2A'    x          up-line              # Shift + UpArrow
-		kind   '^[[1;2B'    x          down-line            # Shift + DownArrow
-		kHOM   '^[[1;2H'    x          beginning-of-line    # Shift + Home
+		kLFT   '^[O5D'    x          backward-char        # Shift + LeftArrow
+		kRIT   '^[O5C'    x          forward-char         # Shift + RightArrow
+		kri    '^[O2A'    x          up-line              # Shift + UpArrow
+		kind   '^[O2B'    x          down-line            # Shift + DownArrow
+		kHOM   '^[O2H'    x          beginning-of-line    # Shift + Home
 		x      '^[[97;6u'   x          beginning-of-line    # Shift + Ctrl + A
-		kEND   '^[[1;2F'    x          end-of-line          # Shift + End
+		kEND   '^[O2F'    x          end-of-line          # Shift + End
 		x      '^[[101;6u'  x          end-of-line          # Shift + Ctrl + E
 		x      '^[[1;6D'    '^[[1;4D'  backward-word        # Shift + Ctrl/Option + LeftArrow
 		x      '^[[1;6C'    '^[[1;4C'  forward-word         # Shift + Ctrl/Option + RightArrow
@@ -85,8 +86,8 @@ function {
 		[[ "$OSTYPE" = darwin* && "$seq_mac" != x ]] && seq=$seq_mac
 
 		zle -N shift-select::$widget shift-select::select-and-invoke
-		bindkey -M emacs ${terminfo[$kcap]:-$seq} shift-select::$widget
-		bindkey -M shift-select ${terminfo[$kcap]:-$seq} shift-select::$widget
+		bindkey -M emacs $seq shift-select::$widget
+		bindkey -M shift-select $seq shift-select::$widget
 	done
 
 	# Bind keys in the shift-select keymap.
